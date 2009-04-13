@@ -605,7 +605,7 @@ NWD_WindowHandler:
 					If ( SYS_ToolTipFeedback )
 					{
 						WinGetPos, NWD_ToolTipWinX, NWD_ToolTipWinY, NWD_ToolTipWinW, NWD_ToolTipWinH, ahk_id %NWD_WinID%
-						SYS_ToolTipText = Window Drag: (X:%NWD_ToolTipWinX%, Y:%NWD_ToolTipWinY%, W:%NWD_ToolTipWinW%, H:%NWD_ToolTipWinH%)
+						SYS_ToolTipText = Drag
 						Gosub, SYS_ToolTipFeedbackShow
 					}
 				}
@@ -1974,8 +1974,8 @@ TRY_TrayEvent:
 
 	If ( TRY_TrayEvent = "About" )
 	{
-		SYS_TrayTipText = Copyright (c) 2004-2005 by Enovatic-Solutions.`nAll rights reserved. Use is subject to license terms.`n`nCompany:`tEnovatic-Solutions (IT Service Provider)`nAuthor:`t`tOliver Pfeiffer`, Bremen (GERMANY)`nEmail:`t`tniftywindows@enovatic.org
-		Gosub, SYS_TrayTipShow
+		SYS_TrayTipText = Nifty!
+; disable tooltip		Gosub, SYS_TrayTipShow
 	}
 
 	If ( TRY_TrayEvent = "Mail Author" )
