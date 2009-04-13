@@ -1,0 +1,11 @@
+Nifty Windows (http://www.enovatic.org/products/niftywindows/introduction/) is a *necessary* utility for MS Windows so that it doesn't stink.  It adds things like easy window dragging and closing.
+
+This is a clone, modified of their source released under the same license (GPL v2).
+
+TODO: add ability to minimize to tray (to make it a competitor to WindowSpace--the only thing WindowSpace has this doesn't is minimize to tray). http://www.autohotkey.com/docs/scripts/MinimizeToTrayMenu.htm
+
+TODO: either make the key bindings configurable, or just arbitrarily change them to be nice like what I want them to be.
+
+TODO: add a list of all key bindings to the right click popup so people can at least know what is possible.
+
+TODO: why doesn't drag work with explorer windows?
