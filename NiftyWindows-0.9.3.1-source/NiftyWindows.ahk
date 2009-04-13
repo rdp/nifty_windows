@@ -31,6 +31,7 @@
 ; AutoHotkey Version 1.0.36.01
 ; http://www.autohotkey.com/
 
+; TODO add some way to minimize
 
 
 #SingleInstance force
@@ -363,15 +364,17 @@ $#RButton::
 
    ; double right -> close
    If ((A_PriorHotkey = A_ThisHotkey) AND A_PriorHotkey = "$RButton" AND A_TimeSincePriorHotkey < 500) {
-	; stolen from http://www.autohotkey.com/forum/topic25068.html
-       Sleep 250  ; give time for the context menu to appear
        Send {Esc} ; close it
+	; stolen from http://www.autohotkey.com/forum/topic25068.html
+;       Sleep 250  ; give time for the context menu to appear
+;       Send {Esc} ; close it
        ; one of these closes works
        WinGet, CLW_WinStyle, Style, ahk_id %NWD_WinID%
        WinClose, ahk_id %NWD_WinID%
 
        Sleep 250  ; give time for the context menu to appear [TODO not have]
        Send {Esc} ; close it
+       Return
    }
 
 
