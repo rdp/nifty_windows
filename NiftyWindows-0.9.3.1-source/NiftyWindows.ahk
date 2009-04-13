@@ -696,7 +696,10 @@ $^MButton::
 	GetKeyState, CLW_RButtonState, RButton, P
 	If ( (CLW_RButtonState = "D") and (!NWD_ImmediateDown) and (NWD_WinClass != "Progman") )
 	{
+		; grab the control key to mean "force" close
 		GetKeyState, CLW_CtrlState, Ctrl, P
+
+		; grab the window handle
 		WinGet, CLW_WinStyle, Style, ahk_id %NWD_WinID%
 		SysGet, CLW_CaptionHeight, 4 ; SM_CYCAPTION
 		SysGet, CLW_BorderHeight, 7 ; SM_CXDLGFRAME
@@ -704,7 +707,7 @@ $^MButton::
 
 		If ( CLW_MouseY <= CLW_CaptionHeight + CLW_BorderHeight )
 		{
-			; send bottom
+			; send to the bottom
 			Gosub, NWD_SetAllOff
 			Send, !{Esc}
 			SYS_ToolTipText = Window Bottom
@@ -719,6 +722,8 @@ $^MButton::
 			{
 				Gosub, NWD_SetAllOff
 				WinClose, ahk_id %NWD_WinID%
+				TrayTip,,'close' %NWD_WinID%
+
 				SYS_ToolTipText = Window Close
 				Gosub, SYS_ToolTipFeedbackShow
 			}
