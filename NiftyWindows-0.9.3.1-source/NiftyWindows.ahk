@@ -25,8 +25,7 @@
  */
 
 
-
-; NiftyWindows Version 0.9.3.1
+; NiftyWindows Version 0.9.3.x [updated]
 ; http://www.enovatic.org/products/niftywindows/
 
 ; AutoHotkey Version 1.0.36.01
@@ -340,6 +339,8 @@ Return
  * cell is the largest one and you can grab and move a window around by clicking 
  * and holding it with the right mouse button. The other eight corner cells are 
  * used to resize a resizable window in the same manner.
+ * Note that it mostly has to deal with the Right Button [right, right drag, etc.]
+ *
  */
 
 $RButton::
@@ -358,6 +359,13 @@ $!^#RButton::
 $^RButton::
 $^#RButton::
 $#RButton::
+
+
+
+   If ((A_PriorHotkey = A_ThisHotkey) AND A_PriorHotkey = "~RButton" AND A_TimeSincePriorHotkey < 500)
+       TrayTip,,'yes''
+
+
 	NWD_ResizeGrids = 5
 	CoordMode, Mouse, Screen
 	MouseGetPos, NWD_MouseStartX, NWD_MouseStartY, NWD_WinID
@@ -616,7 +624,7 @@ Return
 
 
 
-; [MIW {NWD}] minimize/roll on right + left mouse button
+; [MIW {NWD}] minimize/roll on (right + left mouse button)
 
 /**
  * Minimizes the selected window (if minimizable) to the task bar. If you press 
@@ -674,7 +682,7 @@ Return
 
 
 
-; [CLW {NWD}] close/send bottom on right + middle mouse button || double click on middle mouse button
+; [CLW {NWD}] close/send bottom on (right + (then) middle mouse button || double click on middle mouse button)
 
 /**
  * Closes the selected window (if closeable) as if you click the close button 
@@ -696,6 +704,7 @@ $^MButton::
 
 		If ( CLW_MouseY <= CLW_CaptionHeight + CLW_BorderHeight )
 		{
+			; send bottom
 			Gosub, NWD_SetAllOff
 			Send, !{Esc}
 			SYS_ToolTipText = Window Bottom
@@ -703,6 +712,7 @@ $^MButton::
 		}
 		Else
 		{
+			; close window
 			; the second condition checks for closeable window:
 			; (WS_CAPTION | WS_SYSMENU)
 			If ( (CLW_CtrlState = "D") or (CLW_WinStyle & 0xC80000 = 0xC80000) )
@@ -2209,6 +2219,8 @@ CFG_ApplySettings:
 	Else
 		CFG_FifthMouseButtonHookStr = Off
 	
+	; turn them on or off--note that there's at most one per hot key
+
 	Hotkey, $LButton, %CFG_LeftMouseButtonHookStr%
 	Hotkey, $^LButton, %CFG_LeftMouseButtonHookStr%
 	Hotkey, #LButton, %CFG_LeftMouseButtonHookStr%
@@ -2216,8 +2228,8 @@ CFG_ApplySettings:
 	
 	Hotkey, #MButton, %CFG_MiddleMouseButtonHookStr%
 	Hotkey, #^MButton, %CFG_MiddleMouseButtonHookStr%
-	Hotkey, $MButton, %CFG_MiddleMouseButtonHookStr%
-	Hotkey, $^MButton, %CFG_MiddleMouseButtonHookStr%
+	Hotkey, $MButton, %CFG_RightMouseButtonHookStr%
+	Hotkey, $^MButton, %CFG_RightMouseButtonHookStr%
 	
 	Hotkey, $RButton, %CFG_RightMouseButtonHookStr%
 	Hotkey, $+RButton, %CFG_RightMouseButtonHookStr%
@@ -2336,3 +2348,4 @@ Return
 		Gosub, SYS_TrayTipShow
 	}
 Return
+
