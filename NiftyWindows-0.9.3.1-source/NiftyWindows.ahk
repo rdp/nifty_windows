@@ -22,9 +22,12 @@
  * Author:   Oliver Pfeiffer, Bremen (GERMANY)
  * Homepage: http://www.enovatic.org/
  * Email:    contact@enovatic.org
+ *
+ * Updated by Roger Pack rogerdpack@gmail.com
  */
 
-
+; TODO: right clicking on windows menu items is bworked
+; TODO: smaller quadrants [favor drag]
 ; NiftyWindows Version 0.9.3.x [updated]
 ; http://www.enovatic.org/products/niftywindows/
 
