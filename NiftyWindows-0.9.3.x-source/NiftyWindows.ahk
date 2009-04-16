@@ -27,14 +27,15 @@
  */
 
 ; TODO: right clicking on windows menu items is bworked
-; TODO: smaller quadrants [favor drag]
+; TODO: doesn't work on explorer windows?
+
 ; NiftyWindows Version 0.9.3.x [updated]
 ; http://www.enovatic.org/products/niftywindows/
 
 ; AutoHotkey Version 1.0.36.01
 ; http://www.autohotkey.com/
 
-; TODO add some way to minimize
+; XXXX add some way to minimize to tray 
 
 
 #SingleInstance force
@@ -366,11 +367,12 @@ $#RButton::
 
 
    ; double right -> close
+   ; stolen from http://www.autohotkey.com/forum/topic25068.html
+   ; TODO don't close if not closeable, or is progman
+
    If ((A_PriorHotkey = A_ThisHotkey) AND A_PriorHotkey = "$RButton" AND A_TimeSincePriorHotkey < 500) {
-       Send {Esc} ; close it
-	; stolen from http://www.autohotkey.com/forum/topic25068.html
-;       Sleep 250  ; give time for the context menu to appear
-;       Send {Esc} ; close it
+       Send {Esc} ; close any previously popped up menu
+
        ; one of these closes works
        WinGet, CLW_WinStyle, Style, ahk_id %NWD_WinID%
        WinClose, ahk_id %NWD_WinID%
@@ -381,9 +383,12 @@ $#RButton::
    }
 
 
-	NWD_ResizeGrids = 5
+	; Here's where to adjust how close to the border you need to be to do a border resize versus drag this is here is
+	; larger means you have to be closer to an edge for resize instead of drag
+	NWD_ResizeGrids = 8
 	CoordMode, Mouse, Screen
 	MouseGetPos, NWD_MouseStartX, NWD_MouseStartY, NWD_WinID
+	; check if we're over a window
 	If ( !NWD_WinID )
 		Return
 	WinGetPos, NWD_WinStartX, NWD_WinStartY, NWD_WinStartW, NWD_WinStartH, ahk_id %NWD_WinID%
@@ -412,6 +417,7 @@ $#RButton::
 	; checks wheter the window has a sizing border (WS_THICKFRAME)
 	If ( (NWD_CtrlState = "D") or (NWD_WinStyle & 0x40000) )
 	{
+		; decide whether we're dragging or resizing
 		If ( (NWD_MouseStartX >= NWD_WinStartX + NWD_WinStartW / NWD_ResizeGrids) and (NWD_MouseStartX <= NWD_WinStartX + (NWD_ResizeGrids - 1) * NWD_WinStartW / NWD_ResizeGrids) )
 			NWD_ResizeX = 0
 		Else
