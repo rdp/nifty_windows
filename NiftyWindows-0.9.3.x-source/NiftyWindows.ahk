@@ -27,7 +27,6 @@
  */
 
 ; TODO: right clicking on windows menu items is bworked
-; TODO: doesn't work on explorer windows?
 
 ; NiftyWindows Version 0.9.3.x [updated]
 ; http://www.enovatic.org/products/niftywindows/
@@ -42,7 +41,6 @@
 #HotkeyInterval 1000
 #MaxHotkeysPerInterval 100
 #NoTrayIcon
-
 
 
 ; [SYS] autostart section
@@ -399,7 +397,7 @@ $#RButton::
 	
 	; the and'ed condition checks for popup window:
 	; (WS_POPUP) and !(WS_DLGFRAME | WS_SYSMENU | WS_THICKFRAME)
-	If ( (NWD_WinClass = "Progman") or ((NWD_CtrlState = "U") and (((NWD_WinStyle & 0x80000000) and !(NWD_WinStyle & 0x4C0000)) or (NWD_WinClass = "ExploreWClass") or (NWD_WinClass = "CabinetWClass") or (NWD_WinClass = "IEFrame") or (NWD_WinClass = "MozillaWindowClass") or (NWD_WinClass = "OpWindow") or (NWD_WinClass = "ATL:ExplorerFrame") or (NWD_WinClass = "ATL:ScrapFrame"))) )
+	If ( (NWD_WinClass = "Progman") or ((NWD_CtrlState = "U") and (((NWD_WinStyle & 0x80000000) and !(NWD_WinStyle & 0x4C0000)) or (NWD_WinClass = "ExploreWClass") or (NWD_WinClass = "IEFrame") or (NWD_WinClass = "MozillaWindowClass") or (NWD_WinClass = "OpWindow") or (NWD_WinClass = "ATL:ExplorerFrame") or (NWD_WinClass = "ATL:ScrapFrame"))) )
 	{
 		NWD_ImmediateDownRequest = 1
 		NWD_ImmediateDown = 0
@@ -414,10 +412,13 @@ $#RButton::
 	
 	NWD_Dragging := (NWD_WinClass != "Progman") and ((NWD_CtrlState = "D") or ((NWD_WinMinMax != 1) and !NWD_ImmediateDownRequest))
 
+	;TrayTip,,mx%NWD_MouseStartX%  wsx%NWD_WinStartX% wsw%NWD_WinStartW% %NWD_ResizeGrids% %NWD_Dragging% nwc%NWD_WinClass% ncs%NWD_CtrlState% %NWD_WinMinMax% %NWD_ImmediateDownRequest%	
+
 	; checks wheter the window has a sizing border (WS_THICKFRAME)
-	If ( (NWD_CtrlState = "D") or (NWD_WinStyle & 0x40000) )
+	If ( (NWD_CtrlState = "D") or (NWD_WinStyle & 0x40000) or (NWD_WinClass = "CabinetWClass") )
 	{
-		; decide whether we're dragging or resizing
+		;
+		; now decide whether we're dragging or resizing
 		If ( (NWD_MouseStartX >= NWD_WinStartX + NWD_WinStartW / NWD_ResizeGrids) and (NWD_MouseStartX <= NWD_WinStartX + (NWD_ResizeGrids - 1) * NWD_WinStartW / NWD_ResizeGrids) )
 			NWD_ResizeX = 0
 		Else
