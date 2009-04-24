@@ -44,7 +44,6 @@
 #SingleInstance force
 #HotkeyInterval 1000
 #MaxHotkeysPerInterval 100
-#NoTrayIcon
 
 
 ;================ start minimize to tray with win +h
