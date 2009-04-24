@@ -26,6 +26,8 @@
  * Updated by Roger Pack rogerdpack@gmail.com
  */
 
+; LTODO: explorer right drag doesn't work
+
 ; TODO: right clicking on windows menu items is bworked
 ; LTODO if it's a double click but the mouse has traveled far it might be a "not really double click" -- i.e. we are faking noticing double right clicks right now, not really noticing them.
 
@@ -630,14 +632,14 @@ $#RButton::
 	WinGetClass, NWD_WinClass, ahk_id %NWD_WinID%
 	TrayTip, AHK, %NWD_WinClass%,,1
 
-	; Send {Esc} ; close any previously popped up menu
+	Send {Esc} ; close any previously popped up menu
 
         ; one of these closes works
         WinGet, CLW_WinStyle, Style, ahk_id %NWD_WinID%
         WinClose, ahk_id %NWD_WinID%
 
         Sleep 250  ; give time for the context menu to appear [TODO not have]
-        Send {Esc} ; close it
+        ;Send {Esc} ; close it
         Return
    }
 
