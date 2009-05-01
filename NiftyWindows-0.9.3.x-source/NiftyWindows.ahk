@@ -629,7 +629,7 @@ $#RButton::
    If ((A_PriorHotkey = A_ThisHotkey) AND A_PriorHotkey = "$RButton" AND A_TimeSincePriorHotkey < 500) {
 	; double right click
 	WinGetClass, NWD_WinClass, ahk_id %NWD_WinID%
-	TrayTip, AHK, %NWD_WinClass%,,1
+	;TODO work with opera, explorer TrayTip, AHK, %NWD_WinClass%,,1
 
 	Send {Esc} ; close any previously popped up menu
 
