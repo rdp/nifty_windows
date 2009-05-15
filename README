@@ -5,8 +5,13 @@ This is a clone of their code, updated to have
 <win> + h => send current window to tray
 double right click => close current window
 
+=== features that were already there that I use ==
+right drag -> drag window
+right drag near edge -> resize window
+
+
 How to install:
-download/run 
+download and run file from: http://github.com/rogerdpack/nifty_windows/downloads
 
 Known bugs:
 When it's running, you can't right click on items in your programs menu.  Work around currently is to disable nifty windows, do what you need, then restart it.
