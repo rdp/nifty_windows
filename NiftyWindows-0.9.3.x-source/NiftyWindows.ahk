@@ -31,7 +31,7 @@
 ; TODO: right clicking on windows menu items is bworked
 ; LTODO if it's a double click but the mouse has traveled far it might be a "not really double click" -- i.e. we are faking noticing double right clicks right now, not really noticing them.
 
-; NiftyWindows Version 0.9.3.x
+; NiftyWindows Version 0.9.4
 ; http://www.enovatic.org/products/niftywindows/
 ; http://github.com/rogerdpack/nifty_windows/tree/master
 
@@ -305,7 +305,7 @@ return
 ; [SYS] autostart section
 
 SplitPath, A_ScriptFullPath, SYS_ScriptNameExt, SYS_ScriptDir, SYS_ScriptExt, SYS_ScriptNameNoExt, SYS_ScriptDrive
-SYS_ScriptVersion = 0.9.3.x
+SYS_ScriptVersion = 0.9.4.x
 SYS_ScriptBuild = 20090000000000
 SYS_ScriptInfo = %SYS_ScriptNameNoExt% %SYS_ScriptVersion%
 
