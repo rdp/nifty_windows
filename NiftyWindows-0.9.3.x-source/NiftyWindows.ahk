@@ -37,7 +37,6 @@
 
 ; http://www.autohotkey.com/
 
-; XXXX add some way to minimize to tray 
 ; TODO right clicking on title bar -> close -- so nice!
 
 
@@ -45,7 +44,9 @@
 #HotkeyInterval 1000
 #MaxHotkeysPerInterval 100
 
-
+; this script also contains another script within it --
+; the other embedded script is "minimize to tray"
+; and allow <win> + h to minimize the current window to tray.
 ;================ start minimize to tray with win +h
 ; ======= minimize to tray with 
 ;
@@ -291,7 +292,7 @@ Loop, %mwt_MaxWindows%
 }
 return
 
-================== end minimize to tray
+================== end minimize to tray script
 
 
 
@@ -627,18 +628,17 @@ $#RButton::
    ; TODO don't close if not closeable, or is progman
 	
    If ((A_PriorHotkey = A_ThisHotkey) AND A_PriorHotkey = "$RButton" AND A_TimeSincePriorHotkey < 500) {
-	; double right click
+	; double right click close 
 	WinGetClass, NWD_WinClass, ahk_id %NWD_WinID%
 	;TODO work with opera, explorer TrayTip, AHK, %NWD_WinClass%,,1
-
+        Sleep 250  ; give time for any context popup menu to appear [TODO not have]
 	Send {Esc} ; close any previously popped up menu
 
         ; one of these closes works
         WinGet, CLW_WinStyle, Style, ahk_id %NWD_WinID%
         WinClose, ahk_id %NWD_WinID%
 
-        Sleep 250  ; give time for the context menu to appear [TODO not have]
-        ;Send {Esc} ; close it
+        ;Send {Esc} ; close it, too
         Return
    }
 
@@ -2595,14 +2595,16 @@ Return
 UPD_AutoCheckForUpdate:
 	If ( UPD_LastUpdateCheck != A_MM )
 	{
-		Gosub, SUS_SuspendSaveState
-		Suspend, On
-		MsgBox, 4132, Update Handler - %SYS_ScriptInfo%, You haven't checked for updates for a long period of time (at least one month).`n`nDo you want NiftyWindows to check for a new version now (highly recommended)?
-		Gosub, SUS_SuspendRestoreState
-		IfMsgBox, Yes
-			Gosub, UPD_CheckForUpdate
-		Else
-			UPD_LastUpdateCheck = %A_MM%
+		; disabled for now those annoying check for updates messages :)
+
+		;Gosub, SUS_SuspendSaveState
+		;Suspend, On
+		;MsgBox, 4132, Update Handler - %SYS_ScriptInfo%, You haven't checked for updates for a long period of time (at least one month).`n`nDo you want NiftyWindows to check for a new version now (highly recommended)?
+		;Gosub, SUS_SuspendRestoreState
+		;IfMsgBox, Yes
+		;	Gosub, UPD_CheckForUpdate
+		;Else
+	        ;		UPD_LastUpdateCheck = %A_MM%
 	}
 Return
 
